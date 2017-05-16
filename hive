@@ -1,0 +1,15 @@
+ create table if not exists temperature1(station string,
+    > date int,
+    > type string,
+    > temperature int)
+    > row format delimited
+    > fields terminated by ',';
+
+load data local inpath '/home/acadgild/Downloads/Temperature.csv' into table temperature1;
+
+select FROM_UNIXTIME(date,'yyyy'),station,MIN(temperature) from temperature1 group by FROM_UNIXTIME(date,'yyyy'),station;
+
+select FROM_UNIXTIME(date,'yyyy'),station,MAX(temperature) from temperature1 group by FROM_UNIXTIME(date,'yyyy'),station;
+
+select station,count(temperature) from temperature1 group by station;
+
